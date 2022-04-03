@@ -17,29 +17,40 @@ public class PlayerMovement : MonoBehaviour
     public GameObject playerModel;
     public int levelNum;
     public GameManager gameManager;
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        
         this.player = GetComponent<CharacterController>();
         this.gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
+
+        if (Input.GetKey(KeyCode.E)) {
+            animator.SetBool("isSlash", true);
+            Attack();
+        } else {
+            animator.SetBool("isSlash", false);
+        }
+
 
         if (Input.GetKey(KeyCode.Q)) {
             gameManager.slowMotion();
         }
-
+        
         if ((Mathf.Abs(Input.GetAxisRaw("Vertical")) + Mathf.Abs(Input.GetAxisRaw("Horizontal"))) > 0)
             animator.SetFloat("speed", 1);
         else
             animator.SetFloat("speed", 0);
-        
-    
+
         float y = moveDirection.y;
         moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
         moveDirection = moveDirection.normalized * moveSpeed;
@@ -52,12 +63,6 @@ public class PlayerMovement : MonoBehaviour
                 moveDirection.y = jump;
             }
         }
-        
-        if (Input.GetKey(KeyCode.Mouse0))
-            animator.SetBool("isSlash", true);
-        else 
-            animator.SetBool("isSlash", false);
-        
 
         moveDirection.y += Physics.gravity.y * gravityScale;
 
@@ -75,5 +80,24 @@ public class PlayerMovement : MonoBehaviour
             playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
         }
     
+    }
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "star") {
+            FindObjectOfType<GameManager>().loseLife();
+        }
+    }
+
+    void Attack() {
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
+
+        foreach(Collider enemy in hitEnemies) {
+            enemy.GetComponent<enemy>().killed();
+        }
+    }
+
+    void OnDrawGizmo() {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

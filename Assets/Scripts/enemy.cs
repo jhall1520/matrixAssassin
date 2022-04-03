@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class enemy : MonoBehaviour
 {
     public GameObject enemyObject;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +19,15 @@ public class enemy : MonoBehaviour
         
     }
 
+    public void killed() {
+        animator.SetBool("dead", true);
+        GetComponent<Collider>().enabled = false;
+        this.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            Destroy(enemyObject);
+            FindObjectOfType<GameManager>().loseLife();
         }
     }
 }
