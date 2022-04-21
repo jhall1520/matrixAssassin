@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public CharacterController player;
     public int lives;
+    public string level;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     public void loseLife() {
         lives--;
         if (lives == 0) {
-            SceneManager.LoadScene("level1");
+            SceneManager.LoadScene(level);
         } else {
             Vector3 moveDirection;
             moveDirection.x = 0;

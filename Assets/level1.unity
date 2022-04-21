@@ -7474,6 +7474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 856733770}
   lives: 3
+  level: level1
 --- !u!4 &2004136205
 Transform:
   m_ObjectHideFlags: 0

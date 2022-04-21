@@ -17,3 +17,10 @@ https://www.youtube.com/watch?v=h2d9Wc3Hhi0
 Ninja Sword Swing Animation Tutorial:
 https://www.youtube.com/watch?v=vSyBQkFyTOk
 
+Main Menu Tutorial:
+https://www.youtube.com/watch?v=76WOa6IU_s8
+https://www.youtube.com/watch?v=BjEqZfK15Ws
+
+Melee Combat:
+https://www.youtube.com/watch?v=sPiVz1k-fEs&t=1081s
+

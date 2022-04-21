@@ -31,10 +31,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
 
-        if (Input.GetKey(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
             animator.SetBool("isSlash", true);
             Attack();
         } else {
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.Q)) {
+        if (Input.GetKeyDown(KeyCode.Q)) {
             gameManager.slowMotion();
         }
         

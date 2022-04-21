@@ -27,7 +27,7 @@ public class enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            FindObjectOfType<GameManager>().loseLife();
+            //FindObjectOfType<GameManager>().loseLife();
         }
     }
 }
