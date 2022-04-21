@@ -24,3 +24,8 @@ https://www.youtube.com/watch?v=BjEqZfK15Ws
 Melee Combat:
 https://www.youtube.com/watch?v=sPiVz1k-fEs&t=1081s
 
+Player moving with moving platforms:
+https://www.youtube.com/watch?v=rO19dA2jksk
+
+
+
