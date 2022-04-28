@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
-public class mainMenu : MonoBehaviour
+public class loseScene : MonoBehaviour
 {
-
-    public string level1;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +17,14 @@ public class mainMenu : MonoBehaviour
         
     }
 
-    public void Play() {
-        SceneManager.LoadScene(level1);
+    public void Restart() {
+        Debug.Log("level1");
+        SceneManager.LoadScene("level1");
 
     }
 
-    public void Quit() {
-
-        Application.Quit();
+    public void MainMenu() {
+        Debug.Log("mainMenu");
+        SceneManager.LoadScene("mainMenu");
     }
 }

@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public CharacterController player;
-    public int lives;
+    public static int lives = 3;
     public string level;
+    public Text livesShown;
+    private bool takeLife;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        livesShown.text = "x" + lives;
+        takeLife = true;
     }
 
     // Update is called once per frame
@@ -26,21 +31,27 @@ public class GameManager : MonoBehaviour
     }
 
     public void loseLife() {
-        lives--;
-        if (lives == 0) {
-            SceneManager.LoadScene(level);
-        } else {
-            Vector3 moveDirection;
-            moveDirection.x = 0;
-            moveDirection.y = -1;
-            moveDirection.z = 0;
-            player.Move(moveDirection);
+        if (takeLife == true) {
+            takeLife = false;
+            lives--;
+            Debug.Log("lost life");
+            livesShown.text = "x" + lives;
+            if (lives == 0) {
+                Reset();
+                SceneManager.LoadScene("loseScene");
+            } else {
+                SceneManager.LoadScene(level);
+            }
         }
     }
 
     public void slowMotion() {
         Time.timeScale = .3f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
+    }
+
+    void Reset () {
+     lives = 3;
     }
 
 

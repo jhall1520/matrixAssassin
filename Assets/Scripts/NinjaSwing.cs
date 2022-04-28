@@ -18,6 +18,7 @@ public class NinjaSwing : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
+            Debug.Log("Hit star");
             FindObjectOfType<GameManager>().loseLife();
         }
     }

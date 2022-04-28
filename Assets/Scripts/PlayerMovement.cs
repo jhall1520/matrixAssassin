@@ -65,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         moveDirection.y += Physics.gravity.y * gravityScale;
-
         
         player.Move(moveDirection * Time.deltaTime);
 
@@ -80,11 +79,6 @@ public class PlayerMovement : MonoBehaviour
             playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
         }
     
-    }
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "star") {
-            FindObjectOfType<GameManager>().loseLife();
-        }
     }
 
     void Attack() {
