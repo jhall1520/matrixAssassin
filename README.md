@@ -10,6 +10,8 @@ Free 3D Models used From:
 Ground Texture: https://freepbr.com/materials/wispy-grass-meadow/
 Flaming Sword: https://www.cgtrader.com/free-3d-models/military/melee/flame-sword
 Tree: 
+Heart: https://www.cgtrader.com/items/1939326/download-page
+Heart Sprite: https://www.pngwing.com/en/free-png-bbtzt
 
 Player and Camera Movement Tutorials:
 https://www.youtube.com/watch?v=h2d9Wc3Hhi0

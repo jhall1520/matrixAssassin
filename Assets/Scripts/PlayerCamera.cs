@@ -30,6 +30,7 @@ public class PlayerCamera : MonoBehaviour
     void LateUpdate()
     {
 
+        if (!pause.isGamePause) {
         pivot.transform.position = player.transform.position;
 
         // rotates player when player moves
@@ -66,5 +67,6 @@ public class PlayerCamera : MonoBehaviour
             transform.position = new Vector3(transform.position.x, player.position.y - .5f, transform.position.z);
         }
         transform.LookAt(player);
+        }
     }
 }

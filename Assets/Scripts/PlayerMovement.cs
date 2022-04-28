@@ -66,9 +66,9 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection.y += Physics.gravity.y * gravityScale;
         
-        player.Move(moveDirection * Time.deltaTime);
+        player.Move(moveDirection);
 
-        if (moveDirection.y <= -20) {
+        if (player.transform.position.y <= -20) {
             gameManager.loseLife();
         }
 
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetAxisRaw("Horizontal") != 0) || (Input.GetAxisRaw("Vertical") != 0)) {
             transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
-            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed);
         }
     
     }

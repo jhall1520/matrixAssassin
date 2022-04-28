@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public CharacterController player;
     public static int lives = 3;
+    public static bool extraLifeRetrieved = false;
     public string level;
     public Text livesShown;
     private bool takeLife;
@@ -17,13 +18,18 @@ public class GameManager : MonoBehaviour
     {
         livesShown.text = "x" + lives;
         takeLife = true;
+
+        if (extraLifeRetrieved)
+            Destroy(FindObjectOfType<heart>().gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale += (1f / 10f) * Time.unscaledDeltaTime;
-        Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+        if (!pause.isGamePause) {
+            Time.timeScale += (1f / 10f) * Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+        }
     }
 
     public void moveToLevel2() {
@@ -34,7 +40,6 @@ public class GameManager : MonoBehaviour
         if (takeLife == true) {
             takeLife = false;
             lives--;
-            Debug.Log("lost life");
             livesShown.text = "x" + lives;
             if (lives == 0) {
                 Reset();
@@ -45,8 +50,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void gainLife() {
+        lives++;
+        extraLifeRetrieved = true;
+        livesShown.text = "x" + lives;
+    }
+
     public void slowMotion() {
-        Time.timeScale = .3f;
+        Time.timeScale = .1f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
 
