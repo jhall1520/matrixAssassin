@@ -23,11 +23,17 @@ public class enemy : MonoBehaviour
         animator.SetBool("dead", true);
         GetComponent<Collider>().enabled = false;
         this.enabled = false;
+        StartCoroutine(destroyEnemy());
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            //FindObjectOfType<GameManager>().loseLife();
+            // FindObjectOfType<GameManager>().loseLife();
         }
+    }
+
+    IEnumerator destroyEnemy() {
+        yield return new WaitForSeconds(1);
+        Destroy(transform.parent.gameObject);
     }
 }

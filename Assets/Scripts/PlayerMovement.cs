@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
+    
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             animator.SetBool("isSlash", true);
             Attack();
@@ -83,13 +83,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Attack() {
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
-
+        
         foreach(Collider enemy in hitEnemies) {
             enemy.GetComponent<enemy>().killed();
         }
     }
 
-    void OnDrawGizmo() {
+    void OnDrawGizmos() {
         if (attackPoint == null)
             return;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);

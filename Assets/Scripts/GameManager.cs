@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        livesShown.text = "x" + lives;
+        if (livesShown != null)
+            livesShown.text = "x" + lives;
         takeLife = true;
 
         if (extraLifeRetrieved)
@@ -37,16 +38,22 @@ public class GameManager : MonoBehaviour
     }
 
     public void loseLife() {
-        if (takeLife == true) {
-            takeLife = false;
-            lives--;
-            livesShown.text = "x" + lives;
-            if (lives == 0) {
-                Reset();
-                SceneManager.LoadScene("loseScene");
-            } else {
-                SceneManager.LoadScene(level);
+        // if player is not in the tutorial, lose life
+        if (livesShown != null) {
+            if (takeLife == true) {
+                takeLife = false;
+                lives--;
+                livesShown.text = "x" + lives;
+                if (lives == 0) {
+                    Reset();
+                    SceneManager.LoadScene("loseScene");
+                } else {
+                    SceneManager.LoadScene(level);
+                }
             }
+        // if player is in tutorial, just reload the level
+        } else {
+            SceneManager.LoadScene(level);
         }
     }
 
