@@ -6,7 +6,6 @@ using UnityEngine;
 public class tutorial : MonoBehaviour
 {
     public GameObject[] texts;
-    public GameObject welcome;
     public GameObject firstPlatform;
     public GameObject secondPlatform;
     public GameObject closeOffFirstPlat;
@@ -25,7 +24,6 @@ public class tutorial : MonoBehaviour
         closeOffFirstPlat.SetActive(true);
         secondPlatform.SetActive(false);
         closeOffSecondPlat.SetActive(false);
-        welcome.SetActive(true);
         for (int i = 0; i < texts.Length; i++) {
             if (i == 0) {
                 texts[i].SetActive(true);
@@ -40,7 +38,6 @@ public class tutorial : MonoBehaviour
         switch (index) {
         case 0:
             if (Input.GetKeyDown(KeyCode.W)) {
-                welcome.SetActive(false);
                 texts[index].SetActive(false);
                 index++;
                 texts[index].SetActive(true);
@@ -93,8 +90,15 @@ public class tutorial : MonoBehaviour
                 texts[index].SetActive(false);
                 index++;
                 texts[index].SetActive(true);
-                spawnedEnemies = true;
                 enemies.SetActive(true);
+            }
+            break;
+        case 8:
+            if (Input.GetKeyDown(KeyCode.Q)) {
+                texts[index].SetActive(false);
+                index++;
+                texts[index].SetActive(true);
+                spawnedEnemies = true;
             }
             break;
         }

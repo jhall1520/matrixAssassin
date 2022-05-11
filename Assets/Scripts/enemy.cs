@@ -13,6 +13,7 @@ public class enemy : MonoBehaviour
     public Transform attackPoint;
     public float attackSpeed;
     public GameObject projectile;
+    public bool isBoss;
 
     private bool inAttackRange = false;
     // Start is called before the first frame update
@@ -26,6 +27,7 @@ public class enemy : MonoBehaviour
     {
         if (Vector3.Distance(player.position, attackPoint.position) < attackRange) {
 
+            animator.SetBool("shoot", false);
             attackSpeed -= Time.deltaTime;
 
             var lookPos = player.position - transform.position;
@@ -34,20 +36,20 @@ public class enemy : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime);
 
             if (attackSpeed <= 0) {
-                attackSpeed = 3f;
+                animator.SetBool("shoot", true);
+                if (isBoss)
+                    attackSpeed = .3f;
+                else
+                    attackSpeed = 2f;
                 Shoot();
             }
-
-            // Vector3 direction = player.position - transform.position;
-            // direction.y = 0;
-            // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 2 * Time.deltaTime);
         }
     }
 
     void Shoot() {
         Transform projectileTransform = Instantiate(projectile.transform, attackPoint.position, projectile.transform.rotation);
         Vector3 direction = (player.position - attackPoint.position).normalized;
-        projectileTransform.GetComponent<projectile>().initiate(direction, attackRange);
+        projectileTransform.GetComponent<projectile>().initiate(direction, attackRange, isBoss);
         
     }
 

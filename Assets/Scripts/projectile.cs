@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class projectile : MonoBehaviour
 {
     private Vector3 shootDirection;
     private float attackRange;
     private Vector3 startPosition;
+    private int speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,19 +19,23 @@ public class projectile : MonoBehaviour
     void Update()
     {
         if (Vector3.Distance(transform.position, startPosition) < attackRange)
-            transform.position += shootDirection * 2 * Time.deltaTime;
+            transform.position += shootDirection * speed * Time.deltaTime;
         else
             Destroy(gameObject);
         
             //Destroy(this);
         // transform.Translate(Vector3.forward * 0.2 * Time.deltaTime);
-        transform.Rotate(new Vector3(0, 0, 5* 0.1f));
+        transform.Rotate(new Vector3(0, 0, 5 * 0.1f));
         //transform.rotation += Vector3.up * Time.deltaTime * 0.5f;
     }
 
-    public void initiate(Vector3 direction, float attackRange) {
+    public void initiate(Vector3 direction, float attackRange, bool isBoss) {
         shootDirection = direction;
         this.attackRange = attackRange;
+        if (isBoss)
+            this.speed = 10;
+        else
+            this.speed = 5;
     }
 
     // public void initiate(Vector3 direction, float attackRange) {

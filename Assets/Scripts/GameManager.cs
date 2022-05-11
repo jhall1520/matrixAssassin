@@ -46,13 +46,17 @@ public class GameManager : MonoBehaviour
                 livesShown.text = "x" + lives;
                 if (lives == 0) {
                     Reset();
+                    Time.timeScale = 1f;
                     SceneManager.LoadScene("loseScene");
                 } else {
+                    Time.timeScale = 1f;
                     SceneManager.LoadScene(level);
                 }
             }
         // if player is in tutorial, just reload the level
         } else {
+            Time.timeScale = 1f;
+            platformCollider.jumpedPlatform = false;
             SceneManager.LoadScene(level);
         }
     }
