@@ -12,7 +12,7 @@ public class PlayerCamera : MonoBehaviour
     public float maxViewAngle;
     public float minViewAngle;
 
-    public bool invert;
+    public static bool inverted = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +39,7 @@ public class PlayerCamera : MonoBehaviour
 
         // rotates pivot left and right
         float vertical = Input.GetAxis("Mouse Y") * rotate;
-        if (invert) {
+        if (inverted) {
             pivot.Rotate(vertical, 0, 0);
         } else {
             pivot.Rotate(-vertical, 0, 0);

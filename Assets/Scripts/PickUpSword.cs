@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUpSword : MonoBehaviour
 {
+    public string goToLevel;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,8 @@ public class PickUpSword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            FindObjectOfType<GameManager>().moveToLevel2();
+            FindObjectOfType<GameManager>().moveToLevel(goToLevel);
+        
         }
     }
 }

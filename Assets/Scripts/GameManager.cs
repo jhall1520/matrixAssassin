@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     public static bool extraLifeRetrieved = false;
     public string level;
     public Text livesShown;
+    public GameObject checkPoint;
     private bool takeLife;
+    public static bool passedCheckPoint = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +35,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void moveToLevel2() {
-        SceneManager.LoadScene("level2");
+    public void moveToLevel(string level) {
+        SceneManager.LoadScene(level);
     }
 
     public void loseLife() {
@@ -50,7 +52,13 @@ public class GameManager : MonoBehaviour
                     SceneManager.LoadScene("loseScene");
                 } else {
                     Time.timeScale = 1f;
-                    SceneManager.LoadScene(level);
+                    // if player has not passed a checkpoint on this level
+                    if (!passedCheckPoint)
+                    // reload the scene
+                        SceneManager.LoadScene(level);
+                    else
+                    // if the player has passed a checkpoint, respawn the player there
+                        StartCoroutine(spawnAtCheckpoint());
                 }
             }
         // if player is in tutorial, just reload the level
@@ -76,6 +84,15 @@ public class GameManager : MonoBehaviour
      lives = 3;
     }
 
-
+    IEnumerator spawnAtCheckpoint() {
+        PlayerMovement.isDisabled = true;
+        yield return new WaitForSeconds(.2f);
+        Vector3 location = checkPoint.transform.position;
+        location.x += 1;
+        player.transform.position = location;
+        player.transform.rotation = Quaternion.identity;
+        yield return new WaitForSeconds(.2f);
+        PlayerMovement.isDisabled = false;
+    }
 
 }

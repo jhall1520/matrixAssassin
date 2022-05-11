@@ -45,6 +45,10 @@ public class pause : MonoBehaviour
     }
 
     public void GoToMenu() {
+        pauseMenu.SetActive(false);
+        // game time will start as normal
+        Time.timeScale = 1f;
+        isGamePause = false;
         SceneManager.LoadScene("mainMenu");
     }
 }
