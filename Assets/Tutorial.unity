@@ -10850,7 +10850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  jump: 20
+  jump: 17
   gravityScale: 0.008
   player: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
@@ -10866,7 +10866,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   swingSword: {fileID: 361466801}
-  die: {fileID: 1471164606}
   falling: {fileID: 741224131}
   jumpSound: {fileID: 1068360943}
   slowTime: {fileID: 1838265120}
