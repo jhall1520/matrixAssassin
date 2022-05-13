@@ -3,14 +3,21 @@
 Player model and animations are from mixamo.com
 
 3D modeling Tutorials watched:
+
 Ninja Blade: https://www.youtube.com/watch?v=ihgw-OplFzY
+
 Sword: https://www.youtube.com/watch?v=7UK-g9j3S0Q
 
 Free 3D Models used From: 
+
 Ground Texture: https://freepbr.com/materials/wispy-grass-meadow/
+
 Flaming Sword: https://www.cgtrader.com/free-3d-models/military/melee/flame-sword
+
 Tree: https://sketchfab.com/3d-models/low-poly-tree-1-ad78e0142e0c444391757d6db6101c40
+
 Heart: https://www.cgtrader.com/items/1939326/download-page
+
 Heart Sprite: https://www.pngwing.com/en/free-png-bbtzt
 
 Player and Camera Movement Tutorials:
