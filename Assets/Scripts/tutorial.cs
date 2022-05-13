@@ -105,7 +105,7 @@ public class tutorial : MonoBehaviour
         if (spawnedEnemies) {
             aliveEnemies = FindObjectsOfType<enemy>();
             if (aliveEnemies.Length == 0) {
-                SceneManager.LoadScene("level1");
+                SceneManager.LoadScene("TutorialWinScene");
             }
         }
     }

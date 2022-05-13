@@ -22,6 +22,13 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask enemyLayers;
     public static bool isDisabled = false;
 
+    public AudioSource swingSword;
+    public AudioSource die;
+    public AudioSource falling;
+    public AudioSource jumpSound;
+    public AudioSource slowTime;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isDisabled) { 
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
                 animator.SetBool("isSlash", true);
+                swingSword.Play();
                 Attack();
             } else {
                 animator.SetBool("isSlash", false);
@@ -44,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
 
             if (Input.GetKeyDown(KeyCode.Q)) {
+                slowTime.Play();
                 gameManager.slowMotion();
             }
             
@@ -61,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
                 moveDirection.y = 0f;
                 if (Input.GetButtonDown("Jump")) {
                     animator.SetBool("isGrounded", false);
+                    jumpSound.Play();
                     moveDirection.y = jump;
                 }
             }
@@ -69,8 +79,14 @@ public class PlayerMovement : MonoBehaviour
             
             player.Move(moveDirection * Time.deltaTime);
 
-            if (player.transform.position.y <= -20) {
-                gameManager.loseLife();
+            if (player.transform.position.y <= -5 && !animator.GetBool("isFalling")) {
+                animator.SetBool("isFalling", true);
+                falling.Play();
+            }
+                
+            if (player.transform.position.y <= -200) {
+                animator.SetBool("isFalling", false);
+                gameManager.loseLife(animator);
             }
 
             // Move player in different directions based on camera look direction

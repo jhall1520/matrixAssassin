@@ -4,22 +4,13 @@ using UnityEngine;
 
 public class heart : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public AudioSource pickUp;
 
     private void OnTriggerEnter(Collider other) {
         Debug.Log(other.tag);
         if (other.tag == "Player") {
             FindObjectOfType<GameManager>().gainLife();
+            pickUp.Play();
             Destroy(this.gameObject);
         }
     }

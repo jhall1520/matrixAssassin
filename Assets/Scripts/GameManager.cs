@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     private bool takeLife;
     public static bool passedCheckPoint = false;
 
+    public AudioSource die;
+    public bool isSoundPlaying = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,36 +39,55 @@ public class GameManager : MonoBehaviour
     }
 
     public void moveToLevel(string level) {
+        extraLifeRetrieved = false;
         SceneManager.LoadScene(level);
     }
 
-    public void loseLife() {
-        // if player is not in the tutorial, lose life
+    public void loseLife(Animator playerAnimator) {
+    
+        if (playerAnimator.GetBool("isDead")) {
+            PlayerMovement.isDisabled = true;
+            if (!isSoundPlaying)
+                die.Play();
+            isSoundPlaying = true;
+        }
+            // if player is not in the tutorial, lose life
         if (livesShown != null) {
+            // if player has not already had a life taken yet
             if (takeLife == true) {
+                // set life taken to false so, more than one life is not taken
                 takeLife = false;
+                // update lives and text
                 lives--;
                 livesShown.text = "x" + lives;
+                // if lives reached zero, load Lose Scene
                 if (lives == 0) {
+                    // resets lives
                     Reset();
+                    // resets time if player died in slow motion
                     Time.timeScale = 1f;
-                    SceneManager.LoadScene("loseScene");
+                    StartCoroutine(loadLoseScene());
+                    // Else reload scene at the beggining or at the checkpoint
                 } else {
+                    // resets time if player died in slow motion
                     Time.timeScale = 1f;
                     // if player has not passed a checkpoint on this level
-                    if (!passedCheckPoint)
+                    if (!passedCheckPoint) 
                     // reload the scene
-                        SceneManager.LoadScene(level);
-                    else
+                        StartCoroutine(reloadScene());
+                    else {
                     // if the player has passed a checkpoint, respawn the player there
-                        StartCoroutine(spawnAtCheckpoint());
+                        StartCoroutine(spawnAtCheckpoint(playerAnimator));
+                        // life can be taken again after loading player at the checkpoint
+                        isSoundPlaying = false;
+                        takeLife = true;
+                    }
                 }
             }
         // if player is in tutorial, just reload the level
         } else {
             Time.timeScale = 1f;
-            platformCollider.jumpedPlatform = false;
-            SceneManager.LoadScene(level);
+            StartCoroutine(respawnTutorial(playerAnimator));
         }
     }
 
@@ -77,22 +99,47 @@ public class GameManager : MonoBehaviour
 
     public void slowMotion() {
         Time.timeScale = .1f;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
 
     void Reset () {
      lives = 3;
     }
 
-    IEnumerator spawnAtCheckpoint() {
+    IEnumerator spawnAtCheckpoint(Animator playerAnimator) {
         PlayerMovement.isDisabled = true;
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(1.75f);
         Vector3 location = checkPoint.transform.position;
         location.x += 1;
+        location.y += 1;
         player.transform.position = location;
         player.transform.rotation = Quaternion.identity;
-        yield return new WaitForSeconds(.2f);
+        playerAnimator.SetBool("isDead", false);
+        yield return new WaitForSeconds(1.75f);
         PlayerMovement.isDisabled = false;
+    }
+
+    IEnumerator respawnTutorial(Animator playerAnimator) {
+        PlayerMovement.isDisabled = true;
+        yield return new WaitForSeconds(1.75f);
+        playerAnimator.SetBool("isDead", false);
+        Vector3 location = new Vector3(-0.35f, 0.6f, 31.27f);
+        player.transform.position = location;
+        player.transform.rotation = Quaternion.identity;
+        yield return new WaitForSeconds(.4f);
+        PlayerMovement.isDisabled = false;
+    }
+
+    IEnumerator reloadScene() {
+        yield return new WaitForSeconds(2f);
+        PlayerMovement.isDisabled = false;
+        SceneManager.LoadScene(level);
+    }
+
+    IEnumerator loadLoseScene() {
+        yield return new WaitForSeconds(2f);
+        PlayerMovement.isDisabled = false;
+        SceneManager.LoadScene("loseScene");
     }
 
 }

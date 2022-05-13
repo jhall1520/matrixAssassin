@@ -18,13 +18,11 @@ public class loseScene : MonoBehaviour
     }
 
     public void Restart() {
-        Debug.Log("level1");
         SceneManager.LoadScene("level1");
 
     }
 
     public void MainMenu() {
-        Debug.Log("mainMenu");
         SceneManager.LoadScene("mainMenu");
     }
 }

@@ -29,13 +29,10 @@ public class projectile : MonoBehaviour
         //transform.rotation += Vector3.up * Time.deltaTime * 0.5f;
     }
 
-    public void initiate(Vector3 direction, float attackRange, bool isBoss) {
+    public void initiate(Vector3 direction, float attackRange) {
         shootDirection = direction;
         this.attackRange = attackRange;
-        if (isBoss)
-            this.speed = 10;
-        else
-            this.speed = 5;
+        this.speed = 5;
     }
 
     // public void initiate(Vector3 direction, float attackRange) {
@@ -45,7 +42,9 @@ public class projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            FindObjectOfType<GameManager>().loseLife();
+            Animator playerAnimator = other.gameObject.transform.GetChild(0).GetComponent<Animator>();
+            playerAnimator.SetBool("isDead", true);
+            FindObjectOfType<GameManager>().loseLife(playerAnimator);
         }
     }
 }

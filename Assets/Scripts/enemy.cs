@@ -13,9 +13,8 @@ public class enemy : MonoBehaviour
     public Transform attackPoint;
     public float attackSpeed;
     public GameObject projectile;
-    public bool isBoss;
 
-    private bool inAttackRange = false;
+    public AudioSource projectileSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,19 +36,17 @@ public class enemy : MonoBehaviour
 
             if (attackSpeed <= 0) {
                 animator.SetBool("shoot", true);
-                if (isBoss)
-                    attackSpeed = .3f;
-                else
-                    attackSpeed = 2f;
+                attackSpeed = 2f;
                 Shoot();
             }
         }
     }
 
     void Shoot() {
+        projectileSound.Play();
         Transform projectileTransform = Instantiate(projectile.transform, attackPoint.position, projectile.transform.rotation);
         Vector3 direction = (player.position - attackPoint.position).normalized;
-        projectileTransform.GetComponent<projectile>().initiate(direction, attackRange, isBoss);
+        projectileTransform.GetComponent<projectile>().initiate(direction, attackRange);
         
     }
 
