@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class NinjaSwing : MonoBehaviour
 {
-    //public Transform ninjaStar;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     private void OnTriggerEnter(Collider other) {
+        // if player collides
         if (other.tag == "Player") {
+            // get animator
             Animator playerAnimator = other.gameObject.transform.GetChild(0).GetComponent<Animator>();
+            // play animation
             playerAnimator.SetBool("isDead", true);
+            // take away one of the players lives
             FindObjectOfType<GameManager>().loseLife(playerAnimator);
         }
     }

@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class PickUpSword : MonoBehaviour
 {
+    // next level to go to
     public string goToLevel;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other) {
+        // if player collides with sword piece
         if (other.tag == "Player") {
+            // move to next level
             FindObjectOfType<GameManager>().moveToLevel(goToLevel);
-        
+    
         }
     }
 }

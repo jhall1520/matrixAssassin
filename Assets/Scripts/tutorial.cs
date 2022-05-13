@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class tutorial : MonoBehaviour
 {
+    // texts
     public GameObject[] texts;
     public GameObject firstPlatform;
     public GameObject secondPlatform;
@@ -12,7 +13,8 @@ public class tutorial : MonoBehaviour
     public GameObject closeOffSecondPlat;
     public GameObject enemies;
     public enemy[] aliveEnemies;
-    // public GameObject enemy;
+    
+    // enemies
     public Transform[] spawnLocations;
     private bool spawnedEnemies = false;
     private int index = 0;
@@ -20,10 +22,16 @@ public class tutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // hide enemies
         enemies.SetActive(false);
+        // close of the first playform
         closeOffFirstPlat.SetActive(true);
+        // hide the second platform
         secondPlatform.SetActive(false);
+        // hide close off for second platform
         closeOffSecondPlat.SetActive(false);
+        
+        // iterate through texts and set them to false except the first one
         for (int i = 0; i < texts.Length; i++) {
             if (i == 0) {
                 texts[i].SetActive(true);
@@ -35,6 +43,7 @@ public class tutorial : MonoBehaviour
     }
 
     void Update() {
+        // sends player through commands on how to play the game
         switch (index) {
         case 0:
             if (Input.GetKeyDown(KeyCode.W)) {
@@ -102,16 +111,20 @@ public class tutorial : MonoBehaviour
             }
             break;
         }
+        // if enemies are active
         if (spawnedEnemies) {
+            // get all enemies
             aliveEnemies = FindObjectsOfType<enemy>();
+            // if none are shown
             if (aliveEnemies.Length == 0) {
+                // player beat the tutorial
                 SceneManager.LoadScene("TutorialWinScene");
             }
         }
     }
 
     IEnumerator lookAround() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         if (index == 4) {
             texts[index].SetActive(false);
             index++;

@@ -6,31 +6,31 @@ using UnityEngine.SceneManagement;
 public class mainMenu : MonoBehaviour
 {
 
-    public string level1;
+    public string level;
     // Start is called before the first frame update
     void Start()
     {
+        // unlock level from screen
         Cursor.lockState = CursorLockMode.None;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // load level
     public void Play() {
-        SceneManager.LoadScene(level1);
+        SceneManager.LoadScene(level);
 
     }
+
+    // load tutorial
     public void Tutorial() {
         SceneManager.LoadScene("Tutorial");
     }
 
+    // load options
     public void Options() {
         SceneManager.LoadScene("OptionsScene");
     }
 
+    // quit application
     public void Quit() {
         Debug.Log("User quit the application.");
         Application.Quit();
